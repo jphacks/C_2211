@@ -3,29 +3,17 @@ const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty
 async function doPost(e) {
   // console.log(CHANNEL_ACCESS_TOKEN); // でばぐ用
   const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
-  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
   if (typeof replyToken === 'undefined') {
     // debug("強制終了");
     return;
   }
 
-  debug(JSON.parse(e.postData.contents));
-  debug('userId_1: ', userId)
-
   const input = JSON.parse(e.postData.contents).events[0].message;
   const userMessageType = input.type;
-  // debug(userMessageType); // 問題なく取得できている
   const userMessageText = input.text;
   const url = 'https://api.line.me/v2/bot/message/reply';
 
   let message;
-  // if (userMessageType === 'text') {
-  //   debug("テキストメッセージ_ver.47_1");
-  //   message = [{
-  //         'type': 'text',
-  //         'text': "今調べてるところだよ！\n少し待ってね🦉_1",
-  //       }];
-  // }
   if (userMessageType != 'text'){
     debug("テキスト以外");
     message = [{
@@ -80,15 +68,8 @@ async function doPost(e) {
 
 
 async function _doPost_waitMessage(e) {
-  const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
   const userId = JSON.parse(e.postData.contents).events[0].source.userId;
-  if (typeof replyToken === 'undefined') {
-    return;
-  }
-
-  const input = JSON.parse(e.postData.contents).events[0].message;
   const url = 'https://api.line.me/v2/bot/message/push';
-  debug('userId:', userId);
 
   const payload = {
     to: userId,　//ユーザーID
