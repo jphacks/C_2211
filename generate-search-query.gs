@@ -1,5 +1,5 @@
 function generateSearchQuery(sentence) {
-  const postList = ['名詞', '動詞語幹', '形容詞語幹', '独立詞'];  // 検索クエリに追加する品詞一覧
+  const postList = ['名詞', '動詞語幹', '形容詞語幹', '独立詞', 'Number', 'Alphabet', 'Kana', 'Katakana', 'Kanji', 'Roman', 'Undef'];  // 検索クエリに追加する品詞一覧
   // let testSentence = "赤いふくろうのぬいぐるみを買いたい";  // でばぐ用
   let analysisResult = textAnalysis(sentence);  // 形態素解析の結果
   // console.log(analysisResult);
