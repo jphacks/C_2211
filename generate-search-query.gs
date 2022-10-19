@@ -1,8 +1,9 @@
 function generateSearchQuery(sentence) {
   const postList = ['名詞', '動詞語幹', '形容詞語幹', '独立詞', 'Number', 'Alphabet', 'Kana', 'Katakana', 'Kanji', 'Roman', 'Undef'];  // 検索クエリに追加する品詞一覧
-  // let testSentence = "赤いふくろうのぬいぐるみを買いたい";  // でばぐ用
-  let analysisResult = textAnalysis(sentence);  // 形態素解析の結果
-  // console.log(analysisResult);
+  // let testSentence = "今日は走った。明日の天気は？";  // でばぐ用
+  // let sentence = testSentence; // でばぐ用
+  let analysisResult = improveSeachQuery(sentence);  // 形態素解析の結果
+  console.log(analysisResult);
   
   let searchQueryList = [];
   for (let i = 0; i < analysisResult.length; i++){
@@ -20,7 +21,9 @@ function generateSearchUrl(searchQueryList) {
   // let testSearchQueryList = [ '赤', 'ふくろう', 'ぬいぐるみ', '買' ]; // でばぐ用
   let searchUrl = "http://www.google.co.jp/search?hl=ja&source=hp&safe=high&q=";
   for (const keyword of searchQueryList) {
-    searchUrl += (keyword + "+");
+    if (keyword !== "日本") {
+      searchUrl += (keyword + "+");
+    }
   }
   console.log(searchUrl);
   return searchUrl;
