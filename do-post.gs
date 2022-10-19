@@ -12,6 +12,7 @@ async function doPost(e) {
   const userMessageType = input.type;
   const userMessageText = input.text;
   const url = 'https://api.line.me/v2/bot/message/reply';
+  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
 
   let message;
   if (userMessageType != 'text'){
@@ -35,11 +36,11 @@ async function doPost(e) {
   } 
   debug(message);
 
-  await _doPost_waitMessage(e);
-
+  //「ちょっとまってね」と送信
+  await send_waitMessage(userId);
 
   let queryList = await generateSearchQuery(userMessageText);
-  let returnMessage = "調べてきたよ！\n調べた結果は👇から見てね！\n" + await generateSearchUrl(queryList);
+  let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + await generateSearchUrl(queryList);
 
   let message_2
   message_2 = [{
@@ -47,8 +48,6 @@ async function doPost(e) {
       'text': returnMessage,
     }];
   
-  
-
   console.log(returnMessage);
   UrlFetchApp.fetch(url, {
     'headers': {
@@ -66,31 +65,6 @@ async function doPost(e) {
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }
 
-
-async function _doPost_waitMessage(e) {
-  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
-  const url = 'https://api.line.me/v2/bot/message/push';
-
-  const payload = {
-    to: userId,　//ユーザーID
-    messages: [
-      { 
-        'type': 'text',
-        'text': "今調べてるところだよ！\n少し待ってね🦉",  
-      }
-    ]
-  };
-
-  const params = {
-    method: 'post',
-    contentType: 'application/json',
-    headers: {
-      Authorization: 'Bearer ' + CHANNEL_ACCESS_TOKEN
-    },
-    payload: JSON.stringify(payload)
-  };
-  UrlFetchApp.fetch(url, params);
-}
 
 
 
