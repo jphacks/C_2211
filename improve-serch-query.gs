@@ -2,16 +2,16 @@ const hiragana = [["あ", "い", "う", "え", "お"], ["か", "き", "く", "�
 const uDan = ["う", "く", "す", "つ", "ぬ", "ふ", "む", "ゆ", "る"];
 const minusWords = ["何", "教え", "知"] // 何, 教えて, 知りたい, 
 
-function improveSeachQuery(inputMessage){
+async function improveSeachQuery(inputMessage){
 	// let _testInputMessage = "今日は走った。明日の天気は？";
   // let sentence = _testInputMessage;
   let properNounList = [];
 
   // 「。」を「、」に置き換え
-  inputMessage = inputMessage.replace("。", "、");
+  _inputMessage = await inputMessage.replace("。", "、");
 
   // 「どう」が含まれていたら、「方法」に置換
-  inputMessage = inputMessage.replace("どう", "方法");
+  _inputMessage = await inputMessage.replace("どう", "方法");
   
   // // 固有名詞抽出
   // const apiUrl = "https://labs.goo.ne.jp/api/entity";
@@ -29,23 +29,24 @@ function improveSeachQuery(inputMessage){
   // let json = JSON.parse(response);
   // // console.log(json['ne_list']);
 
-  let json = extractProperNoun(inputMessage);
+  let json = extractProperNoun(_inputMessage);
 
   // console.log(json['ne_list'].length);
 
   // 抽出した固有名詞を検索クエリに追加、固有名詞を特定のキーワードで置き換え
   for (let i=0 ; i < json['ne_list'].length; i++) {
     properNounList.push(json['ne_list'][i][0]);
-    inputMessage = inputMessage.replace(json['ne_list'][i][0], "日本");
+    _inputMessage = inputMessage.replace(json['ne_list'][i][0], "日本");
   }
   // console.log(properNounList);
   // console.log(_testInputMessage);
 
   // 動詞を終止形にする
-  const apiUrlVerb = "https://shiraberun.herokuapp.com/" + inputMessage;
+  const apiUrlVerb = "https://shiraberun.herokuapp.com/" + _inputMessage;
   let responseVerb = UrlFetchApp.fetch(apiUrlVerb).getContentText();
   let jsonVerb = JSON.parse(responseVerb);
-  console.log(jsonVerb["sentence"]);
+  debug("動詞を終止形にした");
+  debug(jsonVerb["sentence"]);
 
 
   // 形態素解析を行う

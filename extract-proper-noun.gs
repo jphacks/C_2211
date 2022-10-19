@@ -17,7 +17,7 @@ function extractProperNoun(inputMessage) {
     let json = JSON.parse(response);
     return json;
   } catch(error) {
-    console.log("固有名詞抽出APIにてエラー");
+    debug("固有名詞抽出APIにてエラー");
     return 1;
   }
 }
