@@ -1,7 +1,6 @@
 const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
 
 async function doPost(e) {
-  /** ============初期準備============== */
   // console.log(CHANNEL_ACCESS_TOKEN); // でばぐ用
   const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
   if (typeof replyToken === 'undefined') {
@@ -9,19 +8,17 @@ async function doPost(e) {
     // TODO: ここでエラーメッセージ送ってあげた方がいい？そもそもAPIが取れなかったから無理？
     return;
   }
+
   const input = JSON.parse(e.postData.contents).events[0].message;
   const userMessageType = input.type;
   const userMessageText = input.text;
   const url = 'https://api.line.me/v2/bot/message/reply';
   const userId = JSON.parse(e.postData.contents).events[0].source.userId;
-  /** ========================== */
 
-
-  /** ============スタンプが送られてきたときの処理============== */
-  let sentStampMessage;
+  let message;
   if (userMessageType != 'text'){
     debug("テキスト以外");
-    sentStampMessage = [{
+    message = [{
       'type': 'text',
       'text': "文字で知りたいことを送ってね！🦉",
     }];
@@ -33,35 +30,28 @@ async function doPost(e) {
       'method': 'post',
       'payload': JSON.stringify({
         'replyToken': replyToken,
-        'messages': sentStampMessage,
+        'messages': message,
       }),
     });
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   } 
-  debug(sentStampMessage);
-  /** ========================== */
+  debug(message);
 
-
-  /** ============「ちょっとまってね」と送信============== */
+  //「ちょっとまってね」と送信
   await send_waitMessage(userId);
 
-
-  /** ============検索クエリの用意============== */
   let queryList = await generateSearchQuery(userMessageText);
-
-
-  /** ============返信内容を用意============== */
+  debug("queryList=");
+  debug(queryList);
   let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + await generateSearchUrl(queryList);
-  let replyMessage;
-  replyMessage = [{
+
+  let message_2
+  message_2 = [{
       'type': 'text',
       'text': returnMessage,
     }];
+  
   console.log(returnMessage);
-  /** ========================== */
-
-
-  /** ============返信============== */
   UrlFetchApp.fetch(url, {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -70,11 +60,10 @@ async function doPost(e) {
     'method': 'post',
     'payload': JSON.stringify({
       'replyToken': replyToken,
-      'messages': replyMessage,
+      'messages': message_2,
     }),
   });
-  debug(replyMessage);
-  /** ========================== */
+  debug(message_2);
 
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }

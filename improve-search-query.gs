@@ -2,51 +2,38 @@ const hiragana = [["あ", "い", "う", "え", "お"], ["か", "き", "く", "�
 const uDan = ["う", "く", "す", "つ", "ぬ", "ふ", "む", "ゆ", "る"];
 const minusWords = ["何", "教え", "知"] // 何, 教えて, 知りたい, 
 
-async function improveSeachQuery(inputMessage){
+function improveSeachQuery(input){
 	// let _testInputMessage = "今日は走った。明日の天気は？";
   // let sentence = _testInputMessage;
   let properNounList = [];
 
   // 「。」を「、」に置き換え
-  _inputMessage = await inputMessage.replace("。", "、");
+  inputMessage = input.replace("。", "、");
+
+  
+  
+  debug("imporoveSerchQueryに渡された引数");
+  debug(inputMessage);
+  let json = extractProperNoun(inputMessage);
 
   // 「どう」が含まれていたら、「方法」に置換
-  _inputMessage = await inputMessage.replace("どう", "方法");
-  
-  // // 固有名詞抽出
-  // const apiUrl = "https://labs.goo.ne.jp/api/entity";
-  // const APP_ID = PropertiesService.getScriptProperties().getProperty('APP_ID');
-  
-  // let payload = {
-  //   'app_id' : APP_ID,
-  //   'sentence' : _testInputMessage,
-  // };
-  // let options = {
-  //   'method' : 'post',
-  //   'payload' : payload
-  // };
-  // let response = UrlFetchApp.fetch(apiUrl,options).getContentText();
-  // let json = JSON.parse(response);
-  // // console.log(json['ne_list']);
-
-  let json = extractProperNoun(_inputMessage);
+  inputMessage = inputMessage.replace("どう", "方法");
 
   // console.log(json['ne_list'].length);
 
   // 抽出した固有名詞を検索クエリに追加、固有名詞を特定のキーワードで置き換え
   for (let i=0 ; i < json['ne_list'].length; i++) {
     properNounList.push(json['ne_list'][i][0]);
-    _inputMessage = inputMessage.replace(json['ne_list'][i][0], "日本");
+    inputMessage = inputMessage.replace(json['ne_list'][i][0], "日本");
   }
   // console.log(properNounList);
   // console.log(_testInputMessage);
 
   // 動詞を終止形にする
-  const apiUrlVerb = "https://shiraberun.herokuapp.com/" + _inputMessage;
+  const apiUrlVerb = PropertiesService.getScriptProperties().getProperty('HEROKU_API_URL') + inputMessage;
   let responseVerb = UrlFetchApp.fetch(apiUrlVerb).getContentText();
   let jsonVerb = JSON.parse(responseVerb);
-  debug("動詞を終止形にした");
-  debug(jsonVerb["sentence"]);
+  console.log(jsonVerb["sentence"]);
 
 
   // 形態素解析を行う
@@ -98,6 +85,8 @@ async function improveSeachQuery(inputMessage){
   }
   console.log("-----------検索クエリ------------");
   console.log(wordList);
+  // Array.prototype.push.apply(wordList, properNounList);
+  // return wordList;
   return {
     "wordList": wordList,
     "properNounList": properNounList
