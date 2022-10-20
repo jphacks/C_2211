@@ -19,7 +19,7 @@ function getSuggestions(keywords) {
     // 出力: [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
     return suggestLists;
   } catch(error) {
-    console.log("GoogleSuggestAPI取得でエラー出ちゃった");
+    debug("GoogleSuggestAPI取得でエラー出ちゃった");
     return 1;
   }
 }

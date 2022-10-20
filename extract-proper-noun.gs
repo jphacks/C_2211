@@ -11,13 +11,18 @@ function extractProperNoun(inputMessage) {
     'method' : 'post',
     'payload' : payload
   };
+  debug("extractProperNounに渡された引数");
+  debug(inputMessage);
 
   try {
     let response = UrlFetchApp.fetch(apiUrl,options).getContentText();
     let json = JSON.parse(response);
+    debug("固有名詞");
+    debug(json);
     return json;
   } catch(error) {
     debug("固有名詞抽出APIにてエラー");
+    debug(error);
     return 1;
   }
 }
