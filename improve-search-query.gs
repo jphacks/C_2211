@@ -8,7 +8,12 @@ function improveSeachQuery(input){
   let properNounList = [];
 
   // 「。」を「、」に置き換え
-  inputMessage = input.replace("。", "、");
+  inputMessage = input;
+  var result = input.replace("。", "、");
+  while(result !== inputMessage) {
+      inputMessage = inputMessage.replace("。", "、");
+      result = result.replace("。", "、");
+  }
 
   
   
@@ -17,7 +22,12 @@ function improveSeachQuery(input){
   let json = extractProperNoun(inputMessage);
 
   // 「どう」が含まれていたら、「方法」に置換
-  inputMessage = inputMessage.replace("どう", "方法");
+  //inputMessage = inputMessage.replace("どう", "方法");
+  result = inputMessage.replace("どう", "方法");
+  while(result !== inputMessage) {
+      inputMessage = inputMessage.replace("どう", "方法");
+      result = result.replace("どう", "方法");
+  }
 
   // console.log(json['ne_list'].length);
 

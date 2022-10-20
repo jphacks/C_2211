@@ -1,9 +1,10 @@
-function generateSearchQuery(sentence) {
+async function generateSearchQuery(sentence) {
   const postList = ['名詞', '動詞語幹', '形容詞語幹', '独立詞', 'Number', 'Alphabet', 'Katakana', 'Kanji', 'Roman', 'Undef'];  // 検索クエリに追加する品詞一覧
   // let testSentence = "今日は走った。明日の天気は？";  // でばぐ用
   // let sentence = testSentence; // でばぐ用
-  let analysisResult = improveSeachQuery(sentence)["wordList"];  // 形態素解析の結果
-  let properNounList = improveSeachQuery(sentence)["properNounList"];  // 形態素解析の結果
+  let seachQuery_json = await improveSeachQuery(sentence);
+  let analysisResult = seachQuery_json["wordList"];  // 形態素解析の結果
+  let properNounList = seachQuery_json["properNounList"];  // 形態素解析の結果
   debug("形態素解析の結果");
   debug(analysisResult[2][1]);
   debug(properNounList.length);
