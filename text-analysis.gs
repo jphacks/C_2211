@@ -25,7 +25,7 @@ function textAnalysis(sentence) {
   // for (let i = 0; i < json['word_list'][0].length; i++){
   //   console.log(json['word_list'][0][i][0], json['word_list'][0][i][1]);
   // }
+  // console.log(json['word_list'][0]);
   return json['word_list'][0];
-  console.log(json['word_list']);
 }
 

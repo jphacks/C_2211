@@ -1,22 +1,27 @@
 const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
 
 async function doPost(e) {
+  /** ============初期準備============== */
   // console.log(CHANNEL_ACCESS_TOKEN); // でばぐ用
   const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
   if (typeof replyToken === 'undefined') {
     // debug("強制終了");
+    // TODO: ここでエラーメッセージ送ってあげた方がいい？そもそもAPIが取れなかったから無理？
     return;
   }
-
   const input = JSON.parse(e.postData.contents).events[0].message;
   const userMessageType = input.type;
   const userMessageText = input.text;
   const url = 'https://api.line.me/v2/bot/message/reply';
+  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
+  /** ========================== */
 
-  let message;
+
+  /** ============スタンプが送られてきたときの処理============== */
+  let sentStampMessage;
   if (userMessageType != 'text'){
     debug("テキスト以外");
-    message = [{
+    sentStampMessage = [{
       'type': 'text',
       'text': "文字で知りたいことを送ってね！🦉",
     }];
@@ -28,28 +33,35 @@ async function doPost(e) {
       'method': 'post',
       'payload': JSON.stringify({
         'replyToken': replyToken,
-        'messages': message,
+        'messages': sentStampMessage,
       }),
     });
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   } 
-  debug(message);
+  debug(sentStampMessage);
+  /** ========================== */
 
-  await _doPost_waitMessage(e);
+
+  /** ============「ちょっとまってね」と送信============== */
+  await send_waitMessage(userId);
 
 
+  /** ============検索クエリの用意============== */
   let queryList = await generateSearchQuery(userMessageText);
-  let returnMessage = "調べてきたよ！\n調べた結果は👇から見てね！\n" + await generateSearchUrl(queryList);
 
-  let message_2
-  message_2 = [{
+
+  /** ============返信内容を用意============== */
+  let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + await generateSearchUrl(queryList);
+  let replyMessage;
+  replyMessage = [{
       'type': 'text',
       'text': returnMessage,
     }];
-  
-  
-
   console.log(returnMessage);
+  /** ========================== */
+
+
+  /** ============返信============== */
   UrlFetchApp.fetch(url, {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -58,39 +70,15 @@ async function doPost(e) {
     'method': 'post',
     'payload': JSON.stringify({
       'replyToken': replyToken,
-      'messages': message_2,
+      'messages': replyMessage,
     }),
   });
-  debug(message_2);
+  debug(replyMessage);
+  /** ========================== */
 
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }
 
-
-async function _doPost_waitMessage(e) {
-  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
-  const url = 'https://api.line.me/v2/bot/message/push';
-
-  const payload = {
-    to: userId,　//ユーザーID
-    messages: [
-      { 
-        'type': 'text',
-        'text': "今調べてるところだよ！\n少し待ってね🦉",  
-      }
-    ]
-  };
-
-  const params = {
-    method: 'post',
-    contentType: 'application/json',
-    headers: {
-      Authorization: 'Bearer ' + CHANNEL_ACCESS_TOKEN
-    },
-    payload: JSON.stringify(payload)
-  };
-  UrlFetchApp.fetch(url, params);
-}
 
 
 
