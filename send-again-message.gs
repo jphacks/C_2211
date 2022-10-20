@@ -1,4 +1,10 @@
-async function send_waitMessage(userId) {
+/**
+ * なにかしらのエラーが出た際に、再度時間を置いて試すように促すメッセージを送信する関数
+ */
+async function sendAgainMessage() {
+  if (!isErrorHandling){
+    return;
+  }
   const url = 'https://api.line.me/v2/bot/message/push';
 
   const payload = {
@@ -6,7 +12,7 @@ async function send_waitMessage(userId) {
     messages: [
       { 
         'type': 'text',
-        'text': "今調べてるところだよ！\n少し待ってね🦉",  
+        'text': "ごめんなさい… ちょっと今忙しいみたい\n少し待ってもう一度送ってね！🦉",  
       }
     ]
   };
@@ -20,4 +26,5 @@ async function send_waitMessage(userId) {
     payload: JSON.stringify(payload)
   };
   UrlFetchApp.fetch(url, params);
+  isErrorHandling = false;
 }

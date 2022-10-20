@@ -1,3 +1,9 @@
+/**
+ * 検索ワードの一覧から、Google検索でのサジェストを取得する
+ * @param {String[]} keywords 検索ワードが入った1次元配列
+ * @return {String[]} suggestLists サジェストの検索ワードが入っている
+ * return例 : [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
+ */
 function getSuggestions(keywords) {
   // 引数: 検索クエリが入っているリスト
   const _testKeywords = ["今日", "天気"];
@@ -19,12 +25,17 @@ function getSuggestions(keywords) {
     // 出力: [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
     return suggestLists;
   } catch(error) {
+    sendAgainMessage(userId);
     debug("GoogleSuggestAPI取得でエラー出ちゃった");
     return 1;
   }
 }
 
-
+/**
+ * XMLをパースしてJSONに変換する関数
+ * @param {String} xml XML形式
+ * @return {Json} result XMLをJSONに変換したもの 
+ */
 function xmlToJson(xml) { 
   //XMLをパースして変換関数に引き渡し結果を取得する
   var doc = XmlService.parse(xml);
@@ -34,7 +45,9 @@ function xmlToJson(xml) {
   return result;
 }
 
-
+/**
+ * XMLの各要素をJSONに変換？
+ */
 function elementToJson(element) {
   //結果を格納する箱を用意
   var result = {};
