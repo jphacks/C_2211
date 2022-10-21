@@ -1,10 +1,16 @@
 const CHANNEL_ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty('CHANNEL_ACCESS_TOKEN');
 
+var userId;
+var isErrorHandling = true;
+
+/**
+ * いろんな関数を呼び出してメッセージを送信する関数
+ * @param {Object} e LINE Botのお作法的な
+ * @return {Object} LINE Botのお作法的な
+ */
 async function doPost(e) {
-  // console.log(CHANNEL_ACCESS_TOKEN); // でばぐ用
   const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
   if (typeof replyToken === 'undefined') {
-    // debug("強制終了");
     // TODO: ここでエラーメッセージ送ってあげた方がいい？そもそもAPIが取れなかったから無理？
     return;
   }
@@ -13,11 +19,10 @@ async function doPost(e) {
   const userMessageType = input.type;
   const userMessageText = input.text;
   const url = 'https://api.line.me/v2/bot/message/reply';
-  const userId = JSON.parse(e.postData.contents).events[0].source.userId;
+  userId = JSON.parse(e.postData.contents).events[0].source.userId;
 
   let message;
   if (userMessageType != 'text'){
-    debug("テキスト以外");
     message = [{
       'type': 'text',
       'text': "文字で知りたいことを送ってね！🦉",
@@ -35,14 +40,11 @@ async function doPost(e) {
     });
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   } 
-  debug(message);
 
   //「ちょっとまってね」と送信
-  await send_waitMessage(userId);
+  await sendWaitMessage(userId);
 
   let queryList = await generateSearchQuery(userMessageText);
-  debug("queryList=");
-  debug(queryList);
   let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + await generateSearchUrl(queryList);
 
   let message_2
@@ -51,7 +53,6 @@ async function doPost(e) {
       'text': returnMessage,
     }];
   
-  console.log(returnMessage);
   UrlFetchApp.fetch(url, {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -63,13 +64,9 @@ async function doPost(e) {
       'messages': message_2,
     }),
   });
-  debug(message_2);
 
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }
-
-
-
 
 
 function debug(value='デバッグテスト') {
