@@ -9,10 +9,8 @@ var isErrorHandling = true;
  * @return {Object} LINE Botのお作法的な
  */
 async function doPost(e) {
-  // console.log(CHANNEL_ACCESS_TOKEN); // でばぐ用
   const replyToken= JSON.parse(e.postData.contents).events[0].replyToken;
   if (typeof replyToken === 'undefined') {
-    // debug("強制終了");
     // TODO: ここでエラーメッセージ送ってあげた方がいい？そもそもAPIが取れなかったから無理？
     return;
   }
@@ -25,7 +23,6 @@ async function doPost(e) {
 
   let message;
   if (userMessageType != 'text'){
-    debug("テキスト以外");
     message = [{
       'type': 'text',
       'text': "文字で知りたいことを送ってね！🦉",
@@ -43,14 +40,11 @@ async function doPost(e) {
     });
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   } 
-  debug(message);
 
   //「ちょっとまってね」と送信
   await sendWaitMessage(userId);
 
   let queryList = await generateSearchQuery(userMessageText);
-  debug("queryList=");
-  debug(queryList);
   let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + await generateSearchUrl(queryList);
 
   let message_2
@@ -59,7 +53,6 @@ async function doPost(e) {
       'text': returnMessage,
     }];
   
-  console.log(returnMessage);
   UrlFetchApp.fetch(url, {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -71,7 +64,6 @@ async function doPost(e) {
       'messages': message_2,
     }),
   });
-  debug(message_2);
 
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }

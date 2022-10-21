@@ -20,13 +20,9 @@ async function textAnalysis(sentence) {
 
   //goo形態素解析APIのリクエストURLとappIdを設定(***部分にIDセット)
   const apiUrl = "https://labs.goo.ne.jp/api/morph";
-  debug(apiUrl);
 
   try {
-    debug("tryにはいったよーん");
     const appId = await PropertiesService.getScriptProperties().getProperty('APP_ID');
-    // console.log(APP_ID); // でばぐ用
-    debug(appId);
     //goo形態素解析APIにパラメータをセットし、HTTP POSTするためのoptionsを設定
     let payload = {
       'app_id' : appId,
@@ -37,20 +33,16 @@ async function textAnalysis(sentence) {
       'method' : 'post',
       'payload' : payload
     };
-    debug("25行目まできた");
 
     try {
       //goo形態素解析APIにHTTP POSTでリクエストし、JSONの結果をパース
       let response = await UrlFetchApp.fetch(apiUrl,options).getContentText();
       let json = JSON.parse(response);
-      debug("jsonの中身");
       return (json['word_list'][0]);
     } catch (error) {
-      debug("goo形態素解析APIでつまづいた");
       sendAgainMessage();
     }
   } catch (error) {
-    debug("形態素解析用のAPP_IDの取得に失敗");
     sendAgainMessage();
   }
 }

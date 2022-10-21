@@ -10,17 +10,11 @@ async function generateSearchQuery(sentence) {
   let searchQuery_json = await improveSeachQuery(sentence);
   let analysisResult = searchQuery_json["wordList"];  // 形態素解析の結果
   let properNounList = searchQuery_json["properNounList"];  // 形態素解析の結果
-  debug(searchQuery_json);
-  debug("形態素解析の結果");
-  debug(analysisResult[2][1]);
-  debug(properNounList.length);
   
   let searchQueryList = [];
   let k = 0;
   for (let i = 0; i < analysisResult.length; i++){
-    // console.log(analysisResult[i][1]);
     if (postList.includes(analysisResult[i][1])) {
-      // console.log("語幹だよーん");
       if(analysisResult[i][0] == "日本"){
         searchQueryList.push(properNounList[k]);
         k++;
@@ -31,8 +25,6 @@ async function generateSearchQuery(sentence) {
     }
   }
   k = 0;
-  console.log(searchQueryList);
-  debug("for文おわったよーん");
   return searchQueryList;
 }
 
@@ -69,6 +61,5 @@ function generateSearchUrl(searchQueryList) {
   if(houhouCheck){
     searchUrl += ("+方法");
   }
-  console.log(searchUrl);
   return searchUrl;
 }

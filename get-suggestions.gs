@@ -21,12 +21,10 @@ function getSuggestions(keywords) {
     for (let i = 0; i < 3; i++) { //サジェスト3つ目までとってるので、適当に数字は変えてもろて。。
       suggestLists.push(res["toplevel"]["CompleteSuggestion"][i]["suggestion"]["data"]);
     }
-    console.log(suggestLists);
     // 出力: [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
     return suggestLists;
   } catch(error) {
     sendAgainMessage(userId);
-    debug("GoogleSuggestAPI取得でエラー出ちゃった");
     return 1;
   }
 }

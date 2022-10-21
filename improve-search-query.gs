@@ -8,8 +8,6 @@ const minusWords = ["何", "教え", "知"] // 何, 教えて, 知りたい,
  * @return { {[key: String]: List} } wordList:精度の上がった検索ワード一覧,properNounList:入力文章に含まれていた固有名詞一覧
  */
 async function improveSeachQuery(input){
-  debug("imporoveSerchQueryに渡された引数");
-  debug(input);
 	// let _testInputMessage = "今日は走った。明日の天気は？";
   // let sentence = _testInputMessage;
   let properNounList = [];
@@ -38,23 +36,14 @@ async function improveSeachQuery(input){
     inputMessage = inputMessage.replace(json['ne_list'][i][0], "日本");
   }
 
-  debug("全ての置き換え終了");
-
   // 動詞を終止形にする
   try {
     const apiUrlVerb = await PropertiesService.getScriptProperties().getProperty('HEROKU_API_URL') + inputMessage;
     let responseVerb = await UrlFetchApp.fetch(apiUrlVerb).getContentText();
     let jsonVerb = JSON.parse(responseVerb);
-    console.log(jsonVerb["sentence"]);
-    debug("動詞を終止形に");
 
     // 形態素解析を行う
-    debug(jsonVerb["sentence"]);
     const wordList = await textAnalysis(jsonVerb["sentence"]);
-    debug("wordListの中身");
-    debug(wordList);
-    console.log(wordList);
-    debug("-------------形態素解析終了-------------");
 
     // 不要なワードの削除
     for (let i = 0; i < minusWords.length; i++) {
@@ -65,8 +54,6 @@ async function improveSeachQuery(input){
         }
       }
     }
-    console.log(wordList);
-    debug("-------------不要なワード削除済み-------------");
 
     // もろもろの場合分けを無限に
     for (let i=0; i < wordList.length; i++) {
@@ -98,16 +85,11 @@ async function improveSeachQuery(input){
         wordList[i-1][0] += wordList[i][0];
       }
     }
-    console.log("-----------検索クエリ------------");
-    console.log(wordList);
-    // Array.prototype.push.apply(wordList, properNounList);
-    // return wordList;
     return {
       "wordList": wordList,
       "properNounList": properNounList
     };  // -> generateSearchQuesyに渡す
   } catch (error) {
-    debug("動詞を終止形にするAPIでしんじゃったー");
     sendAgainMessage();
   }
 }
