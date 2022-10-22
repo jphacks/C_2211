@@ -4,7 +4,8 @@
 
 <a href="https://lin.ee/RQ1YzE6"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
 
-![友達追加用QRコード](gainfriends_qr.png)
+<img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/gainfriends_qr.png" width="200px">
+↑↑ 友だち追加はこちらから ↑↑
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
@@ -87,7 +88,7 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 
   テキストメッセージではなく、以下のようなカルーセルテンプレートを使用することで、分かりやすいUIにこだわりました。
 
-  <img src="https://github.com/jphacks/C_2211/raw/master/carousel.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/carousel.png" width="250px">
   
 
 ### 競合他サービスなどとの比較
@@ -96,25 +97,25 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 
   大阪市から森のお菓子というお店までの経路を表示
 
-  <img src="https://github.com/jphacks/C_2211/raw/master/GoogleAssistant.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/GoogleAssistant.png" width="250px">
 
 * Siri
 
   大阪の飲食店を複数表示
 
-  <img src="https://github.com/jphacks/C_2211/raw/master/siri.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/siri.png" width="250px">
 
 * 本製品
   
   大阪のオススメお土産をまとめているサイトを表示
   
-  <img src="https://github.com/jphacks/C_2211/raw/master/LINE_talk.png" width="250px">
-  <img src="https://github.com/jphacks/C_2211/raw/master/image.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/LINE_talk.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/image.png" width="250px">
   
 
 ## 開発技術
 
-<img src="https://github.com/jphacks/C_2211/raw/master/used-technology.png" width="500px">
+<img src="https://github.com/jphacks/C_2211/raw/master/images-for-README/used-technology.png" width="500px">
 
 ### 活用した技術
 
@@ -221,7 +222,7 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 #### 小代
 * 担当: アルゴリズム考案、LINEとの繋ぎ込み
 * 得意分野: UI設計、Flutter、人のコードを解読する
-* 今回がんばったこと: 人生初のLINE Bot。短い時間で仕様から理解して実装することを頑張りました。
+* 今回がんばったこと: 人生初のLINE Bot。短い時間でLINEのMessage APIの仕様から理解して実装することを頑張りました。
 
 #### 竹澤
 * 担当: API作成・デプロイ、API呼び出し、アイコン・画像等の作成
