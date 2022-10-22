@@ -93,21 +93,24 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 ### 競合他サービスなどとの比較
 「明日大阪に旅行に行くんだけど、おみやげ何がいい？」という文章を用いた際の結果の比較
 * Googleアシスタント
-  
-  <img src="https://github.com/jphacks/C_2211/raw/master/GoogleAssistant.png" width="250px">
 
   大阪市から森のお菓子というお店までの経路を表示
+
+  <img src="https://github.com/jphacks/C_2211/raw/master/GoogleAssistant.png" width="250px">
+
 * Siri
-  
-  <img src="https://github.com/jphacks/C_2211/raw/master/siri.png" width="250px">
 
   大阪の飲食店を複数表示
+
+  <img src="https://github.com/jphacks/C_2211/raw/master/siri.png" width="250px">
+
 * 本製品
+  
+  大阪のオススメお土産をまとめているサイトを表示
   
   <img src="https://github.com/jphacks/C_2211/raw/master/LINE_talk.png" width="250px">
   <img src="https://github.com/jphacks/C_2211/raw/master/image.png" width="250px">
   
-  大阪のオススメお土産をまとめているサイトを表示
 
 ## 開発技術
 
