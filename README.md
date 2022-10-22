@@ -119,12 +119,16 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
   * 固有表現抽出API
   * 形態素解析API
 * GoogleSuggestAPI
+* Message API(LINE)
 * 自作API
   * 動詞を終止形に変換するAPI
 
 #### フレームワーク・ライブラリ・モジュール
 * spacy(Python)
 * FastAPI(Python)
+
+#### サーバー
+* Heroku
 
 <!-- #### デバイス
 * 
