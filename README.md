@@ -87,29 +87,30 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 
   テキストメッセージではなく、以下のようなカルーセルテンプレートを使用することで、分かりやすいUIにこだわりました。
 
-  ![カルーセルテンプレートを使用](carousel.png)
+  <img src="https://github.com/jphacks/C_2211/raw/master/carousel.png" width="250px">
+  
 
 ### 競合他サービスなどとの比較
 「明日大阪に旅行に行くんだけど、おみやげ何がいい？」という文章を用いた際の結果の比較
 * Googleアシスタント
   
-  ![Googleアシスタント](GoogleAssistant.png)
+  <img src="https://github.com/jphacks/C_2211/raw/master/GoogleAssistant.png" width="250px">
 
   大阪市から森のお菓子というお店までの経路を表示
 * Siri
   
-  ![Siri](siri.png)
+  <img src="https://github.com/jphacks/C_2211/raw/master/siri.png" width="250px">
 
   大阪の飲食店を複数表示
 * 本製品
   
-  ![しらべるん](shiraberun.png)
+  <img src="https://github.com/jphacks/C_2211/raw/master/shiraberun.png" width="250px">
   
   大阪のオススメお土産をまとめているサイトを表示
 
 ## 開発技術
 
-![使用技術](used-technology.png)
+<img src="https://github.com/jphacks/C_2211/raw/master/used-technology.png" width="500px">
 
 ### 活用した技術
 
