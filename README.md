@@ -104,7 +104,8 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
   大阪の飲食店を複数表示
 * 本製品
   
-  <img src="https://github.com/jphacks/C_2211/raw/master/shiraberun.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/LINE_talk.png" width="250px">
+  <img src="https://github.com/jphacks/C_2211/raw/master/image.png" width="250px">
   
   大阪のオススメお土産をまとめているサイトを表示
 
