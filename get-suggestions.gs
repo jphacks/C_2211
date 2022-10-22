@@ -5,7 +5,6 @@
  * return例 : [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
  */
 function getSuggestions(keywords) {
-  debug(keywords);
   // 引数: 検索クエリが入っているリスト
   const _testKeywords = ["今日", "天気"];
   let apiUrl = "http://www.google.com/complete/search?hl=ja&output=toolbar&q=";

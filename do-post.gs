@@ -45,21 +45,12 @@ async function doPost(e) {
   await sendWaitMessage(userId);
 
   let queryList = await generateSearchQuery(userMessageText);
-  debug(typeof queryList)
-
-  // generateSearchQuery(userMessageText).then( function(value) {
-  //   // ここでプロミスオブジェクトの中身をああだこうだする。
-  //   queryList.push(value);
-  //   debug(value);
-  // })
 
   while(queryList == undefined){
     Utilities.sleep(100);
   }
 
   let returnUrl = await encodeURI(generateSearchUrl(queryList));
-  let returnMessage = "調べてきたよ！\n調べた結果は👇をタッチ！\n" + returnUrl;
-  debug(queryList);
   let suggestWordList = await getSuggestions(queryList);
 
   
@@ -71,7 +62,6 @@ async function doPost(e) {
   tileText_1 += "」🔎";
   debug(tileText_1);
   
-  debug(suggestWordList[0]);
   let columnList = [{
             "thumbnailImageUrl": "https://raw.githubusercontent.com/jphacks/C_2211/develop/images/check_url.png",
             // "imageBackgroundColor": "#FFFFFF",
@@ -90,12 +80,11 @@ async function doPost(e) {
                 }
             ]
           }];
-          
+
   if(suggestWordList[0] != "u"){
     let tileText_2 = "「 " + suggestWordList[0] + " 」🔎";
     debug(tileText_2);
     let suggestQueryList = suggestWordList[0].split(" ");
-    debug(suggestQueryList)
     const suggestUrl_1 =  encodeURI(generateSearchUrl(suggestQueryList));
 
     columnList.push({
@@ -116,11 +105,10 @@ async function doPost(e) {
           },
     )
 
-    if(suggestWordList.length == 2){
+    if(suggestWordList.length >= 2){
       let tileText_3 = "「 " + suggestWordList[1] + " 」🔎";
       debug(tileText_3);
       suggestQueryList = suggestWordList[1].split(" ");
-      debug(suggestQueryList)
       const suggestUrl_2 =  encodeURI(generateSearchUrl(suggestQueryList));
       columnList.push({
             "thumbnailImageUrl": "https://raw.githubusercontent.com/jphacks/C_2211/develop/images/check_more_url.png",
@@ -143,8 +131,6 @@ async function doPost(e) {
   }
 
 
-  debug("messageTileを用意");
-  debug(typeof returnUrl);
   let messageTile;
   messageTile = [{
     "type": "template",
@@ -155,8 +141,6 @@ async function doPost(e) {
     }
   }];
   
-  debug("返信を実行");
-  debug(messageTile);
   try{
     UrlFetchApp.fetch(url, {
       'headers': {
@@ -169,7 +153,6 @@ async function doPost(e) {
         'messages': messageTile,
       }),
     });
-    debug("返信を実行終了");
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   }catch(e){
     debug("返信できず");

@@ -32,8 +32,6 @@ async function generateSearchQuery(sentence) {
     searchQueryList.push("方法");
   }
   k = 0;
-  debug(typeof searchQueryList);
-  debug(searchQueryList);
   return searchQueryList;
 }
 

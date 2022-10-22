@@ -27,6 +27,13 @@ async function improveSeachQuery(input){
       result = result.replace("\n", "");
   }
 
+  // 「　」を「」に置き換え（全角スペースを半角に置き換え）
+  result = inputMessage.replace("　", "");
+  while(result !== inputMessage) {
+      inputMessage = inputMessage.replace("　", "");
+      result = result.replace("　", "");
+  }
+
   let json = await extractProperNoun(inputMessage);
 
   // 「どう」が含まれていたら、「方法」に置換
