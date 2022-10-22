@@ -20,10 +20,16 @@ async function improveSeachQuery(input){
       result = result.replace("。", "、");
   }
 
+  // 「\n」を「」に置き換え（改行を消去）
+  result = inputMessage.replace("\n", "");
+  while(result !== inputMessage) {
+      inputMessage = inputMessage.replace("\n", "");
+      result = result.replace("\n", "");
+  }
+
   let json = await extractProperNoun(inputMessage);
 
   // 「どう」が含まれていたら、「方法」に置換
-  //inputMessage = inputMessage.replace("どう", "方法");
   result = inputMessage.replace("どう", "方法");
   while(result !== inputMessage) {
       inputMessage = inputMessage.replace("どう", "方法");

@@ -53,4 +53,5 @@ async function fetchAllApi() {
     "verb_terminal_form": rtnListForVerbTerminalForm
   }
   console.log(rtnAssociativeArray);
+  return rtnAssociativeArray;
 }

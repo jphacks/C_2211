@@ -4,6 +4,7 @@
  * @return {String[]} searchQueryList 検索ワードの入った1次元リスト
  */
 async function generateSearchQuery(sentence) {
+  debug(sentence);
   const postList = ['名詞', '動詞語幹', '形容詞語幹', '独立詞', 'Number', 'Alphabet', 'Katakana', 'Kanji', 'Roman', 'Undef'];  // 検索クエリに追加する品詞一覧
   // let testSentence = "今日は走った。明日の天気は？";  // でばぐ用
   // let sentence = testSentence; // でばぐ用
@@ -13,18 +14,26 @@ async function generateSearchQuery(sentence) {
   
   let searchQueryList = [];
   let k = 0;
+  let houhouCheck = false;
   for (let i = 0; i < analysisResult.length; i++){
     if (postList.includes(analysisResult[i][1])) {
       if(analysisResult[i][0] == "日本"){
         searchQueryList.push(properNounList[k]);
         k++;
+      }else if(analysisResult[i][0] == "方法"){
+        houhouCheck = true;
       }else{
         searchQueryList.push(analysisResult[i][0]);
       }
       
     }
   }
+  if(houhouCheck){
+    searchQueryList.push("方法");
+  }
   k = 0;
+  debug(typeof searchQueryList);
+  debug(searchQueryList);
   return searchQueryList;
 }
 
@@ -49,17 +58,7 @@ function generateSearchUrl(searchQueryList) {
     }else{
       searchUrl += ("+");
     }
-    if (keyword === "方法"){
-      houhouCheck = true;
-      firstOnly = true;
-    }else if (keyword !== "日本") {
-      searchUrl += (keyword);
-    }else{
-      firstOnly = true;
-    }
-  }
-  if(houhouCheck){
-    searchUrl += ("+方法");
+    searchUrl += (keyword);
   }
   return searchUrl;
 }

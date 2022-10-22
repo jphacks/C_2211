@@ -5,12 +5,13 @@
  * return例 : [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
  */
 function getSuggestions(keywords) {
+  debug(keywords);
   // 引数: 検索クエリが入っているリスト
   const _testKeywords = ["今日", "天気"];
   let apiUrl = "http://www.google.com/complete/search?hl=ja&output=toolbar&q=";
 
-  for (let i = 0; i < _testKeywords.length; i++) {
-    apiUrl += _testKeywords[i] + "+";
+  for (let i = 0; i < keywords.length; i++) {
+    apiUrl += keywords[i] + "+";
   }
   
   try {
@@ -18,7 +19,10 @@ function getSuggestions(keywords) {
     let res = xmlToJson(response);            // <- JSONに変換
 
     let suggestLists = [];
-    for (let i = 0; i < 3; i++) { //サジェスト3つ目までとってるので、適当に数字は変えてもろて。。
+    if (typeof res["toplevel"]["CompleteSuggestion"] === "undefined") {
+      return "undefined";
+    }
+    for (let i = 0; i < Math.min(3, res["toplevel"]["CompleteSuggestion"].length); i++) { //サジェスト3つ目までとってるので、適当に数字は変えてもろて。。
       suggestLists.push(res["toplevel"]["CompleteSuggestion"][i]["suggestion"]["data"]);
     }
     // 出力: [ '今日 天気 東京', '今日 天気 大阪', '今日 天気 横浜' ]
