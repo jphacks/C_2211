@@ -4,7 +4,7 @@
 
 <a href="https://lin.ee/RQ1YzE6"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
 
-<img src="https://qr-official.line.me/sid/M/734sizyr.png?shortenUrl=true">
+![友達追加用QRコード](gainfriends_qr.png)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
