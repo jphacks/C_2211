@@ -1,6 +1,6 @@
 # LINE Bot「しらべるん」
 
-[![サムネイル](しらべるんスライド.png)](https://youtu.be/2JkOpVqlTyw)
+[![サムネイル](images-for-README/しらべるんスライド.png)](https://youtu.be/2JkOpVqlTyw)
 
 <a href="https://lin.ee/RQ1YzE6"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
 
@@ -150,7 +150,7 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
   - 固有名詞の抽出
     - gooラボAPIの「固有表現抽出API」を使用
   - 動詞を終止形に変換
-    - 自作したAPIを使用([FastAPI](https://github.com/jphacks/C_2211/blob/master/verb-to-terminal-form-API/main.py))
+    - 自作したAPIを使用([/verb-to-terminal-form-API/FastAPI](https://github.com/jphacks/C_2211/blob/master/verb-to-terminal-form-API/main.py))
   - 形態素分析
     - gooラボAPIの「形態素解析API」を使用
   - 不要なワードの削除
