@@ -1,6 +1,6 @@
 # LINE Bot「しらべるん」
 
-[![サムネイル](しらべるんスライド.png)](https://lin.ee/RQ1YzE6)
+[![サムネイル](しらべるんスライド.png)](https://youtu.be/2JkOpVqlTyw)
 
 <a href="https://lin.ee/RQ1YzE6"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
 
