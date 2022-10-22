@@ -145,7 +145,7 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 口語から検索ワードを生成するアルゴリズム([/improve-search-query.gs](https://github.com/jphacks/C_2211/blob/master/improve-search-query.gs))
+* 口語から検索ワードを生成するアルゴリズム([/GAS/improve-search-query.gs](https://github.com/jphacks/C_2211/blob/master/GAS/improve-search-query.gs))
   
 1. 固有名詞の抽出
     - gooラボAPIの「固有表現抽出API」を使用
