@@ -142,6 +142,8 @@ LINEの普及率は2022年の調査でも **約7割** ほど。
 
   などを組み合わせることで、口語から適切な検索ワードを作成しました。
   
+[発表スライド](https://www.canva.com/design/DAFPgKl_cmQ/GSE8p9Sq-mtpE9X1Ac6pXQ/view?utm_content=DAFPgKl_cmQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+  
 <!-- * 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。 -->
 
 <!-- #### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
