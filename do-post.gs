@@ -39,6 +39,25 @@ async function doPost(e) {
       }),
     });
     return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (userMessageText == '使い方'){
+    message = [{
+      'type': 'text',
+      'text': "🔰しらべるんに話しかけるコツ🔰\n・できるだけ簡潔に話そう\n・知りたいことだけを書こう\n\n例）\n❌ 今日は雨で気分が憂鬱でした。明日はいい天気になるかな？\n⭕️ 明日の天気を教えて！\n\n「使い方」と送信すると、もう一度このメッセージを見ることができるよ！",
+    }];
+    UrlFetchApp.fetch(url, {
+      'headers': {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + CHANNEL_ACCESS_TOKEN,
+      },
+      'method': 'post',
+      'payload': JSON.stringify({
+        'replyToken': replyToken,
+        'messages': message,
+      }),
+    });
+    return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
   } 
 
   //「ちょっとまってね」と送信
